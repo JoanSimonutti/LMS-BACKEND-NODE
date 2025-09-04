@@ -1,8 +1,8 @@
 # Technical Test: LMS Service
 
-## Overview
+### Overview:
 
-This is a complete Learning Management System (LMS) implementation that supports infinite hierarchical modules, user authentication, lesson tracking, and progress completion. The system demonstrates advanced backend development capabilities with TypeORM, Express.js, and comprehensive testing.
+This is a complete Learning Management System (LMS) implementation that supports infinite hierarchical modules, user authentication, lesson tracking, and progress completion. The system demonstrates backend development capabilities with TypeORM, Express.js, and comprehensive testing.
 
 ## Architecture Decision: Infinite Levels Implementation
 
@@ -248,3 +248,11 @@ This implementation demonstrates:
 - **Docker Best Practices**: Multi-stage builds and proper container orchestration
 
 The infinite module hierarchy implementation showcases advanced understanding of self-referencing relationships and recursive data structures while maintaining data integrity and query performance.
+
+---
+
+<div align="end">
+
+Creado por [Joan Simonutti](https://www.linkedin.com/in/joansimonutti/) | 2025
+
+</div>
