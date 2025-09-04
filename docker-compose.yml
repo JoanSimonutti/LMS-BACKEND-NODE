@@ -1,0 +1,34 @@
+services:
+  node:
+    build:
+      context: .
+      target: development
+    tty: true
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 3124:3124
+    depends_on:
+      - mongo
+      - mysql
+
+  mongo:
+    image: mongo
+    volumes:
+      - mongo_storage:/data/db
+    ports:
+      - 27017:27124
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lms
+    volumes:
+      - mysql_storage:/var/lib/mysql
+    ports:
+      - 3306:33066
+
+volumes:
+  mongo_storage:
+  mysql_storage:

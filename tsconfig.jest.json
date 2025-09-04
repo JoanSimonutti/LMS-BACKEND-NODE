@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@database": ["src/database.ts"],
+      "@database.test": ["src/database.test.ts"],
+      "@modules/*": ["src/modules/*"],
+      "@shared/*": ["src/shared/*"],
+      "@app": ["src/app.ts"]
+    }
+  },
+  "include": ["src/**/*", "tests/**/*"]
+}
