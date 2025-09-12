@@ -1,157 +1,170 @@
-# Technical Test: LMS Service
+# LMS Service
 
-### Overview:
+### Descripción general:
 
-This is a complete Learning Management System (LMS) implementation that supports infinite hierarchical modules, user authentication, lesson tracking, and progress completion. The system demonstrates backend development capabilities with TypeORM, Express.js, and comprehensive testing.
+Esta es una implementación completa de un Sistema de Gestión de Aprendizaje (LMS) que soporta módulos jerárquicos infinitos, autenticación de usuarios, seguimiento de lecciones y finalización de progreso. El sistema demuestra capacidades de desarrollo backend con TypeORM, Express.js y pruebas integrales.
 
-## Architecture Decision: Infinite Levels Implementation
+## Decisión de arquitectura: implementación de niveles infinitos.
 
-I implemented the **infinite levels of modules** approach, which represents the advanced solution to this technical challenge. This allows for unlimited nesting of modules within modules, providing maximum flexibility for complex course structures.
+Implementé el enfoque de niveles infinitos de módulos, que representa la solución avanzada a este desafío técnico. Esto permite un anidamiento ilimitado de módulos dentro de módulos, brindando máxima flexibilidad para estructuras de cursos complejas.
 
-### Example Structure Supported:
+### Ejemplo de estructura soportada:
 
 ```
-Course 1:
-  ├── Module 1
-  │   ├── Lesson 1.1
-  │   ├── Lesson 1.2
-  │   └── Module 1.1
-  │       ├── Lesson 1.1.1
-  │       └── Module 1.1.1
-  │           └── Lesson 1.1.1.1
-  ├── Module 2
-  │   ├── Lesson 2.1
-  │   └── Lesson 2.2
-  └── Module 3
-      └── Lesson 3.1
+Curso 1:
+  ├── Módulo 1
+  │   ├── Lección 1.1
+  │   ├── Lección 1.2
+  │   └── Módulo 1.1
+  │       ├── Lección 1.1.1
+  │       └── Módulo 1.1.1
+  │           └── Lección 1.1.1.1
+  ├── Módulo 2
+  │   ├── Lección 2.1
+  │   └── Lección 2.2
+  └── Módulo 3
+      └── Lección 3.1
 ```
 
-## Features Implemented
+---
 
-### Core LMS Functionality
+## Funcionalidades Implementadas
 
-- **Course Management**: Full CRUD operations for courses
-- **Infinite Module Hierarchy**: Self-referencing modules supporting unlimited nesting
-- **Lesson Management**: Complete lesson system within modules
-- **User Authentication**: JWT-based authentication with bcrypt password hashing
-- **Progress Tracking**: Completion system tracking user progress through lessons
+### Funcionalidad central del LMS
 
-### Technical Features
+- **Gestión de Cursos**: Operaciones CRUD completas para cursos
+- **Jerarquía infinita de Módulos**: Módulos autorreferenciados con anidamiento ilimitado
+- **Gestión de Lecciones**: Sistema completo de lecciones dentro de módulos
+- **Autenticación de Usuarios**: Autenticación basada en JWT con hash de contraseñas usando bcrypt
+- **Seguimiento de Progreso**: Sistema de finalización que rastrea el progreso del usuario a través de las lecciones
 
-- **Relational Database Design**: MySQL with proper foreign key relationships
-- **Type Safety**: Full TypeScript implementation
-- **Modular Architecture**: Clean separation of concerns with controllers, services, and models
-- **Comprehensive Testing**: 31 integration tests covering all endpoints
-- **Docker Configuration**: Complete containerization with docker-compose
-- **Data Validation**: Robust input validation and error handling
+### Funcionalidades técnicas
 
-## Technology Stack
+- **Diseño de Base de Datos Relacional**: MySQL con relaciones de claves foráneas
+- **Tipado Estricto**: Implementación completa en TypeScript
+- **Arquitectura Modular**: Separación clara de responsabilidades con controladores, servicios y modelos
+- **Pruebas Completas**: 31 pruebas de integración cubriendo todos los endpoints
+- **Configuración con Docker**: Contenerización completa con docker-compose
+- **Validación de Datos**: Validación robusta de entradas y manejo de errores
 
-### Backend Framework
+---
 
-- **Express.js**: Web application framework
-- **TypeORM**: Object-relational mapping with MySQL
-- **TypeScript**: Type-safe JavaScript implementation
+## Stack Tecnológico
 
-### Database
+### Framework Backend
 
-- **MySQL**: Relational database for data persistence
-- **Foreign Key Constraints**: Ensuring data integrity across relationships
+- **Express.js**: Framework para aplicaciones web
+- **TypeORM**: Mapeo objeto-relacional con MySQL
+- **TypeScript**: Implementación de JavaScript tipado
 
-### Authentication & Security
+### Base de Datos
 
-- **JWT (jsonwebtoken)**: Stateless authentication tokens
-- **bcrypt**: Secure password hashing
+- **MySQL**: Base de datos relacional para persistencia de datos
+- **Restricciones de Claves Foráneas**: Garantizando integridad de datos en las relaciones
 
-### Testing
+### Autenticación y Seguridad
 
-- **Jest**: Testing framework with integration tests
-- **Supertest**: HTTP assertion library for API testing
-- **Test Database**: Isolated test environment using the same MySQL setup
+- **JWT (jsonwebtoken)**: Tokens de autenticación sin estado
+- **bcrypt**: Hash seguro de contraseñas
+
+### Pruebas
+
+- **Jest**: Framework de testing con pruebas de integración
+- **Supertest**: Librería de aserciones HTTP para testear APIs
+- **Base de Datos de Pruebas**: Entorno aislado de test usando la misma configuración de MySQL
 
 ### DevOps
 
-- **Docker & Docker Compose**: Containerization and orchestration
-- **Makefile**: Simplified command execution
+- **Docker & Docker Compose**: Contenerización y orquestación
+- **Makefile**: Ejecución simplificada de comandos
 
-## Database Schema
+---
 
-### Entity Relationships
+## Esquema de Base de Datos
+
+### Relaciones entre entidades
 
 ```
-Users (1) ←→ (N) Completions (N) ←→ (1) Lessons
-                                        ↓ (N)
-                                    Modules (self-referencing for hierarchy)
-                                        ↓ (N)
-                                     Courses (1)
+Usuarios (1) ←→ (N) Finalizaciones (N) ←→ (1) Lecciones
+
+↓ (N)
+
+Módulos (autorreferencia para jerarquía)
+
+↓ (N)
+
+Cursos (1)
 ```
 
-### Key Design Decisions
+### Decisiones clave de diseño
 
-1. **Self-Referencing Modules**: Implemented with `moduleId` foreign key pointing to parent module, enabling infinite nesting
-2. **Completion Tracking**: Unique constraint on `(userId, lessonId)` preventing duplicate completions
-3. **Cascade Deletes**: Proper cleanup when parent entities are removed
-4. **Progress Percentage**: Granular progress tracking (0-100%) for each lesson completion
+1. **Módulos autorreferenciados**: Implementados con clave foránea `moduleId` apuntando al módulo padre, habilitando anidamiento infinito
+2. **Seguimiento de Finalizaciones**: Restricción única en `(userId, lessonId)` evitando duplicados
+3. **Borrado en Cascada**: Limpieza adecuada al eliminar entidades padre
+4. **Porcentaje de Progreso**: Seguimiento granular (0-100%) para cada lección completada
 
-## API Endpoints
+---
 
-### Authentication
+## Endpoints de la API
 
-- `POST /users/register` - User registration
-- `POST /users/login` - User login (returns JWT token)
+### Autenticación
 
-### Course Management
+- `POST /users/register` → Registro de usuario
+- `POST /users/login` → Inicio de sesión (retorna token JWT)
 
-- `GET /courses` - List all courses
-- `GET /courses/:id` - Get specific course
-- `POST /courses` - Create new course
-- `PUT /courses/:id` - Update course
-- `DELETE /courses/:id` - Delete course
+### Gestión de Cursos
 
-### Module Management (Hierarchical)
+- `GET /courses` → Listar todos los cursos
+- `GET /courses/:id` → Obtener curso específico
+- `POST /courses` → Crear nuevo curso
+- `PUT /courses/:id` → Actualizar curso
+- `DELETE /courses/:id` → Eliminar curso
 
-- `GET /modules` - List modules (supports filtering by course/parent)
-- `GET /modules/:id` - Get specific module
-- `POST /modules` - Create new module (can be root or child)
-- `PUT /modules/:id` - Update module
-- `DELETE /modules/:id` - Delete module
+### Gestión de Módulos (Jerárquico)
 
-### Lesson Management
+- `GET /modules` → Listar módulos (filtrado por curso/padre)
+- `GET /modules/:id` → Obtener módulo específico
+- `POST /modules` → Crear nuevo módulo (raíz o hijo)
+- `PUT /modules/:id` → Actualizar módulo
+- `DELETE /modules/:id` → Eliminar módulo
 
-- `GET /lessons` - List lessons (supports filtering by module)
-- `GET /lessons/:id` - Get specific lesson
-- `POST /lessons` - Create new lesson
-- `PUT /lessons/:id` - Update lesson
-- `DELETE /lessons/:id` - Delete lesson
+### Gestión de Lecciones
 
-### Progress Tracking
+- `GET /lessons` → Listar lecciones (filtrado por módulo)
+- `GET /lessons/:id` → Obtener lección específica
+- `POST /lessons` → Crear nueva lección
+- `PUT /lessons/:id` → Actualizar lección
+- `DELETE /lessons/:id` → Eliminar lección
 
-- `GET /completions` - List completions (supports filtering)
-- `GET /completions/:id` - Get specific completion
-- `POST /completions` - Mark lesson as completed
-- `PUT /completions/:id` - Update completion progress
-- `DELETE /completions/:id` - Remove completion
-- `GET /completions/user/:userId/progress` - Get user's complete progress summary
+### Seguimiento de Progreso
 
-## Running the Project
+- `GET /completions` → Listar finalizaciones (filtrado)
+- `GET /completions/:id` → Obtener finalización específica
+- `POST /completions` → Marcar lección como completada
+- `PUT /completions/:id` → Actualizar progreso
+- `DELETE /completions/:id` → Eliminar finalización
+- `GET /completions/user/:userId/progress` → Obtener resumen completo del progreso de un usuario
 
-### Prerequisites
+---
 
-- Docker and Docker Compose installed
+## Ejecución del Proyecto
 
-### Setup Commands
+### Requisitos previos
 
-Start the services:
+- Docker y Docker Compose instalados
 
-```bash
+### Comandos de configuración
+
+Iniciar los servicios:
+
+````bash
 # MacOS/Linux
 make
 
 # Windows
 docker compose up -d --build
-```
 
-Install dependencies:
+Instalar dependencias:
 
 ```bash
 # MacOS/Linux
@@ -159,9 +172,9 @@ make install
 
 # Windows
 docker-compose exec node npm install
-```
+````
 
-Run the development server:
+Ejecutar el servidor de desarrollo:
 
 ```bash
 # MacOS/Linux
@@ -171,7 +184,7 @@ make run
 docker-compose exec node npm run dev
 ```
 
-Run the complete test suite:
+Ejecutar la suite de pruebas:
 
 ```bash
 # MacOS/Linux
@@ -181,78 +194,84 @@ make test
 docker-compose exec node npm run test
 ```
 
-## Testing Strategy
+## Estrategia de Testing
 
-### Integration Testing Approach
+### Enfoque de pruebas de integración
 
-- **31 comprehensive tests** covering all major functionality
-- **Real database testing** using MySQL in Docker
-- **Complete CRUD coverage** for all entities
-- **Relationship testing** including hierarchical module structures
-- **Authentication flow testing** with JWT tokens
-- **Error case handling** with proper status codes
+- **31 pruebas completas** cubriendo toda la funcionalidad principal
+- **Pruebas con base de datos real** usando MySQL en Docker
+- **Cobertura CRUD completa** para todas las entidades
+- **Pruebas de relaciones** incluyendo estructuras jerárquicas de módulos
+- **Flujo de autenticación** con JWT
+- **Manejo de errores** con códigos de estado adecuados
 
-### Test Categories
+### Categorías de pruebas
 
-- Health check endpoint
-- User registration and authentication
-- Course CRUD operations
-- Module hierarchy operations (root and nested)
-- Lesson management within modules
-- Completion tracking and progress calculation
+- Endpoint de health check
+- Registro y autenticación de usuarios
+- Operaciones CRUD de cursos
+- Operaciones de jerarquía de módulos (raíz y anidados)
+- Gestión de lecciones dentro de módulos
+- Seguimiento de finalizaciones y cálculo de progreso
 
-### Test Environment
+### Entorno de pruebas
 
-Tests run in an isolated environment using the same MySQL setup as production, ensuring test reliability and production parity.
+Las pruebas se ejecutan en un entorno aislado usando la misma configuración de MySQL que en producción, asegurando fiabilidad y paridad.
 
-## Code Quality & Architecture
+---
 
-### Design Patterns
+## Calidad de Código y Arquitectura
 
-- **Repository Pattern**: Clean data access layer through TypeORM
-- **Service Layer**: Business logic separation in user authentication
-- **Controller Pattern**: Request/response handling with proper error management
-- **Modular Structure**: Feature-based organization promoting maintainability
+### Patrones de diseño
 
-### Error Handling
+- **Repository Pattern**: Capa de acceso a datos limpia mediante TypeORM
+- **Service Layer**: Lógica de negocio separada en la autenticación de usuarios
+- **Controller Pattern**: Manejo de request/response con gestión adecuada de errores
+- **Estructura Modular**: Organización basada en funcionalidades que promueve la mantenibilidad
 
-- Standardized error responses across all endpoints
-- Input validation with meaningful error messages
-- Proper HTTP status codes for different scenarios
-- Database constraint violation handling
+### Manejo de errores
 
-### Security Considerations
+- Respuestas de error estandarizadas en todos los endpoints
+- Validación de entradas con mensajes significativos
+- Códigos HTTP correctos para cada escenario
+- Manejo de violaciones de restricciones de base de datos
 
-- Password hashing with bcrypt
-- JWT token-based authentication
-- Input sanitization and validation
-- Foreign key constraints preventing orphaned records
+### Consideraciones de seguridad
 
-## Performance Considerations
+- Hash de contraseñas con bcrypt
+- Autenticación basada en tokens JWT
+- Sanitización y validación de entradas
+- Restricciones de claves foráneas evitando registros huérfanos
 
-The current implementation prioritizes correctness and maintainability. For production scaling, consider:
+---
 
-- **Caching**: Redis for frequently accessed course/module data
-- **Database Indexing**: Optimized queries for hierarchical module traversal
-- **Pagination**: For large course/module listings
-- **Connection Pooling**: Database connection optimization
+## Consideraciones de Rendimiento
 
-## Development Highlights
+La implementación actual prioriza la corrección y la mantenibilidad. Para escalar en producción se recomienda considerar:
 
-This implementation demonstrates:
+- **Cacheo**: Redis para datos de cursos/módulos accedidos frecuentemente
+- **Indexación en la base de datos**: Consultas optimizadas para recorrer módulos jerárquicos
+- **Paginación**: Para listados grandes de cursos o módulos
+- **Pooling de conexiones**: Optimización de conexiones a la base de datos
 
-- **Complex Relational Design**: Successfully modeling hierarchical data in a relational database
-- **Test-Driven Development**: Comprehensive test coverage ensuring reliability
-- **Production-Ready Code**: Error handling, validation, and security best practices
-- **Modern TypeScript**: Full type safety and latest ES features
-- **Docker Best Practices**: Multi-stage builds and proper container orchestration
+---
 
-The infinite module hierarchy implementation showcases advanced understanding of self-referencing relationships and recursive data structures while maintaining data integrity and query performance.
+## Puntos destacados del desarrollo
+
+Esta implementación demuestra:
+
+- **Diseño relacional complejo**: Modelado exitoso de datos jerárquicos en una base relacional
+- **Desarrollo guiado por pruebas (TDD)**: Cobertura integral que asegura fiabilidad
+- **Código listo para producción**: Manejo de errores, validación y buenas prácticas de seguridad
+- **TypeScript moderno**: Tipado completo y uso de las últimas características de ES
+- **Buenas prácticas en Docker**: Builds multietapa y orquestación adecuada
+
+La implementación de jerarquías infinitas de módulos demuestra un entendimiento de relaciones autorreferenciadas y estructuras recursivas, manteniendo la integridad de datos y el rendimiento en las consultas.
 
 ---
 
 <div align="end">
 
-Creado por [Joan Simonutti](https://www.linkedin.com/in/joansimonutti/) | 2025
+Realizado por [Joan Simonutti](https://www.linkedin.com/in/joansimonutti/) | Creada por @daviddionis | 2025
 
 </div>
