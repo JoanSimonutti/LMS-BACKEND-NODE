@@ -87,7 +87,7 @@ Módulos (autorreferencia para jerarquía)
 Cursos (1)
 ```
 
-### Decisiones clave de diseño
+### Decisiones diseño
 
 1. **Módulos autorreferenciados**: Implementados con clave foránea `moduleId` apuntando al módulo padre, habilitando anidamiento infinito
 2. **Seguimiento de Finalizaciones**: Restricción única en `(userId, lessonId)` evitando duplicados
