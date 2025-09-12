@@ -1,12 +1,13 @@
-# LMS Service Technical Interview
+# Learning Management System | Technical Interview
 
 ### Descripción general:
 
-Esta es una implementación completa de un Sistema de Gestión de Aprendizaje (Learning Management System) que soporta módulos jerárquicos infinitos, autenticación de usuarios, seguimiento de lecciones y finalización de progreso. El sistema demuestra capacidades de desarrollo backend con TypeORM, Express.js y pruebas integrales.
+Esta es una implementación completa de un Sistema de Gestión de Aprendizaje (LMS) que soporta módulos jerárquicos infinitos, autenticación de usuarios, seguimiento de lecciones y finalización de progreso. El sistema demuestra capacidades de desarrollo backend con TypeORM, Express.js y pruebas integrales.
 
 ### Arquitectura: implementación de niveles infinitos.
 
-Apliqué el enfoque de niveles infinitos de módulos, que representa la solución avanzada a este desafío técnico. Esto permite un anidamiento ilimitado de módulos dentro de módulos, brindando máxima flexibilidad para estructuras de cursos complejas.
+- Apliqué el enfoque de niveles infinitos de módulos, que representa la solución avanzada a este desafío técnico.
+- Esto permite un anidamiento ilimitado de módulos dentro de módulos, brindando estructuras de cursos complejas.
 
 ### Ejemplo de estructura soportada:
 
@@ -172,7 +173,7 @@ make run
 docker-compose exec node npm run dev
 ```
 
-Ejecutar la suite de pruebas:
+Ejecutar la suite de pruebas (ver testing):
 
 ```bash
 # MacOS/Linux
@@ -183,8 +184,6 @@ docker-compose exec node npm run test
 ```
 
 ## Testing
-
-### Enfoque de pruebas de integración
 
 - **31 pruebas completas** cubriendo toda la funcionalidad principal
 - **Pruebas con base de datos real** usando MySQL en Docker
@@ -227,7 +226,7 @@ docker-compose exec node npm run test
 - Sanitización y validación de entradas
 - Restricciones de claves foráneas evitando registros huérfanos
 
-### Consideraciones de Rendimiento
+### Consideraciones de rendimiento
 
 La implementación actual prioriza la corrección y la mantenibilidad. Para escalar en producción se recomienda considerar:
 
