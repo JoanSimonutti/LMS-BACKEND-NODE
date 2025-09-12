@@ -1,12 +1,12 @@
-# LMS Service
+# LMS Service Technical Interview
 
 ### Descripción general:
 
-Esta es una implementación completa de un Sistema de Gestión de Aprendizaje (LMS) que soporta módulos jerárquicos infinitos, autenticación de usuarios, seguimiento de lecciones y finalización de progreso. El sistema demuestra capacidades de desarrollo backend con TypeORM, Express.js y pruebas integrales.
+Esta es una implementación completa de un Sistema de Gestión de Aprendizaje (Learning Management System) que soporta módulos jerárquicos infinitos, autenticación de usuarios, seguimiento de lecciones y finalización de progreso. El sistema demuestra capacidades de desarrollo backend con TypeORM, Express.js y pruebas integrales.
 
-## Decisión de arquitectura: implementación de niveles infinitos.
+### Arquitectura: implementación de niveles infinitos.
 
-Implementé el enfoque de niveles infinitos de módulos, que representa la solución avanzada a este desafío técnico. Esto permite un anidamiento ilimitado de módulos dentro de módulos, brindando máxima flexibilidad para estructuras de cursos complejas.
+Apliqué el enfoque de niveles infinitos de módulos, que representa la solución avanzada a este desafío técnico. Esto permite un anidamiento ilimitado de módulos dentro de módulos, brindando máxima flexibilidad para estructuras de cursos complejas.
 
 ### Ejemplo de estructura soportada:
 
@@ -26,8 +26,6 @@ Curso 1:
       └── Lección 3.1
 ```
 
----
-
 ## Funcionalidades Implementadas
 
 ### Funcionalidad central del LMS
@@ -46,8 +44,6 @@ Curso 1:
 - **Pruebas Completas**: 31 pruebas de integración cubriendo todos los endpoints
 - **Configuración con Docker**: Contenerización completa con docker-compose
 - **Validación de Datos**: Validación robusta de entradas y manejo de errores
-
----
 
 ## Stack Tecnológico
 
@@ -78,21 +74,15 @@ Curso 1:
 - **Docker & Docker Compose**: Contenerización y orquestación
 - **Makefile**: Ejecución simplificada de comandos
 
----
-
 ## Esquema de Base de Datos
 
 ### Relaciones entre entidades
 
 ```
 Usuarios (1) ←→ (N) Finalizaciones (N) ←→ (1) Lecciones
-
 ↓ (N)
-
 Módulos (autorreferencia para jerarquía)
-
 ↓ (N)
-
 Cursos (1)
 ```
 
@@ -102,8 +92,6 @@ Cursos (1)
 2. **Seguimiento de Finalizaciones**: Restricción única en `(userId, lessonId)` evitando duplicados
 3. **Borrado en Cascada**: Limpieza adecuada al eliminar entidades padre
 4. **Porcentaje de Progreso**: Seguimiento granular (0-100%) para cada lección completada
-
----
 
 ## Endpoints de la API
 
@@ -194,7 +182,7 @@ make test
 docker-compose exec node npm run test
 ```
 
-## Estrategia de Testing
+## Testing
 
 ### Enfoque de pruebas de integración
 
@@ -214,13 +202,9 @@ docker-compose exec node npm run test
 - Gestión de lecciones dentro de módulos
 - Seguimiento de finalizaciones y cálculo de progreso
 
-### Entorno de pruebas
-
-Las pruebas se ejecutan en un entorno aislado usando la misma configuración de MySQL que en producción, asegurando fiabilidad y paridad.
-
 ---
 
-## Calidad de Código y Arquitectura
+## Código y Arquitectura
 
 ### Patrones de diseño
 
@@ -243,9 +227,7 @@ Las pruebas se ejecutan en un entorno aislado usando la misma configuración de 
 - Sanitización y validación de entradas
 - Restricciones de claves foráneas evitando registros huérfanos
 
----
-
-## Consideraciones de Rendimiento
+### Consideraciones de Rendimiento
 
 La implementación actual prioriza la corrección y la mantenibilidad. Para escalar en producción se recomienda considerar:
 
@@ -253,20 +235,6 @@ La implementación actual prioriza la corrección y la mantenibilidad. Para esca
 - **Indexación en la base de datos**: Consultas optimizadas para recorrer módulos jerárquicos
 - **Paginación**: Para listados grandes de cursos o módulos
 - **Pooling de conexiones**: Optimización de conexiones a la base de datos
-
----
-
-## Puntos destacados del desarrollo
-
-Esta implementación demuestra:
-
-- **Diseño relacional complejo**: Modelado exitoso de datos jerárquicos en una base relacional
-- **Desarrollo guiado por pruebas (TDD)**: Cobertura integral que asegura fiabilidad
-- **Código listo para producción**: Manejo de errores, validación y buenas prácticas de seguridad
-- **TypeScript moderno**: Tipado completo y uso de las últimas características de ES
-- **Buenas prácticas en Docker**: Builds multietapa y orquestación adecuada
-
-La implementación de jerarquías infinitas de módulos demuestra un entendimiento de relaciones autorreferenciadas y estructuras recursivas, manteniendo la integridad de datos y el rendimiento en las consultas.
 
 ---
 
