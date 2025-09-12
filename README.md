@@ -1,6 +1,6 @@
 # Learning Management System | Technical Interview
 
-### Descripción general:
+### Descripción:
 
 Esta es una implementación completa de un Sistema de Gestión de Aprendizaje (LMS) que soporta módulos jerárquicos infinitos, autenticación de usuarios, seguimiento de lecciones y finalización de progreso. El sistema demuestra capacidades de desarrollo backend con TypeORM, Express.js y pruebas integrales.
 
