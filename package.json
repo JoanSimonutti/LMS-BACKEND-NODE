@@ -1,13 +1,13 @@
 {
-  "name": "lms-technical-apui",
+  "name": "lms-backend",
   "version": "0.1.0",
-  "description": "A Fourvenues Technical Interview",
+  "description": "Learning Management System Backend in Node.js + TypeORM",
   "main": "dist/index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node -r tsconfig-paths/register --files src/index.ts",
     "test": "jest --runInBand --detectOpenHandles --forceExit --config jest.config.ts"
   },
-  "author": "David Dionis (@daviddionis)",
+  "author": "Joan Simonutti (@joansimonutti)",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^6.0.0",

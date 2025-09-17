@@ -1,15 +1,17 @@
-# Learning Management System | Technical Interview
+# Learning Management System | Backend en Node.js + TypeORM
 
-### Descripción:
+### Descripción
 
-Esta es una implementación completa de un Sistema de Gestión de Aprendizaje (LMS) que soporta módulos jerárquicos infinitos, autenticación de usuarios, seguimiento de lecciones y finalización de progreso. El sistema demuestra capacidades de desarrollo backend con TypeORM, Express.js y pruebas integrales.
+Este es un backend completo para un **Sistema de Gestión de Aprendizaje (LMS)**.  
+Soporta jerarquías infinitas de módulos, gestión de cursos y lecciones, autenticación de usuarios, seguimiento de progreso y finalización de contenidos.
 
-### Arquitectura: implementación de niveles infinitos.
+El sistema está desarrollado con **Node.js, Express, TypeORM y TypeScript**, con una arquitectura modular, validación robusta y pruebas integrales.
 
-- Apliqué el enfoque de niveles infinitos de módulos, que representa la solución avanzada a este desafío técnico.
-- Esto permite un anidamiento ilimitado de módulos dentro de módulos, brindando estructuras de cursos complejas.
+### Arquitectura: Jerarquía infinita de módulos
 
-### Ejemplo de estructura soportada:
+Se implementó un modelo de datos que permite anidar módulos de forma ilimitada, lo que habilita la construcción de cursos complejos con múltiples niveles de profundidad.
+
+### Ejemplo de estructura soportada
 
 ```
 Curso 1:
@@ -27,57 +29,40 @@ Curso 1:
       └── Lección 3.1
 ```
 
+---
+
 ## Funcionalidades Implementadas
 
-### Funcionalidad central del LMS
+### Core del LMS
 
-- **Gestión de Cursos**: Operaciones CRUD completas para cursos
-- **Jerarquía infinita de Módulos**: Módulos autorreferenciados con anidamiento ilimitado
-- **Gestión de Lecciones**: Sistema completo de lecciones dentro de módulos
-- **Autenticación de Usuarios**: Autenticación basada en JWT con hash de contraseñas usando bcrypt
-- **Seguimiento de Progreso**: Sistema de finalización que rastrea el progreso del usuario a través de las lecciones
+- **Gestión de Cursos**: CRUD completo
+- **Módulos jerárquicos infinitos**: autorreferencia con anidamiento ilimitado
+- **Gestión de Lecciones**: CRUD completo dentro de módulos
+- **Autenticación de Usuarios**: JWT + contraseñas hasheadas con bcrypt
+- **Seguimiento de Progreso**: sistema de finalización con tracking granular
 
 ### Funcionalidades técnicas
 
-- **Diseño de Base de Datos Relacional**: MySQL con relaciones de claves foráneas
-- **Tipado Estricto**: Implementación completa en TypeScript
-- **Arquitectura Modular**: Separación clara de responsabilidades con controladores, servicios y modelos
-- **Pruebas Completas**: 31 pruebas de integración cubriendo todos los endpoints
-- **Configuración con Docker**: Contenerización completa con docker-compose
-- **Validación de Datos**: Validación robusta de entradas y manejo de errores
+- **Base de datos relacional con MySQL** y claves foráneas
+- **TypeScript con tipado estricto**
+- **Arquitectura modular** (controladores, servicios, repositorios)
+- **Pruebas integrales** con Jest + Supertest (31 tests)
+- **Contenerización con Docker** (docker-compose + Makefile)
+- **Validación de datos y manejo de errores estandarizado**
+
+---
 
 ## Stack Tecnológico
 
-### Framework Backend
+- **Backend**: Node.js, Express.js, TypeORM, TypeScript
+- **Base de Datos**: MySQL (relaciones + restricciones de integridad)
+- **Autenticación**: JWT + bcrypt
+- **Testing**: Jest, Supertest, MySQL aislado en entorno de test
+- **DevOps**: Docker, Docker Compose, Makefile
 
-- **Express.js**: Framework para aplicaciones web
-- **TypeORM**: Mapeo objeto-relacional con MySQL
-- **TypeScript**: Implementación de JavaScript tipado
-
-### Base de Datos
-
-- **MySQL**: Base de datos relacional para persistencia de datos
-- **Restricciones de Claves Foráneas**: Garantizando integridad de datos en las relaciones
-
-### Autenticación y Seguridad
-
-- **JWT (jsonwebtoken)**: Tokens de autenticación sin estado
-- **bcrypt**: Hash seguro de contraseñas
-
-### Pruebas
-
-- **Jest**: Framework de testing con pruebas de integración
-- **Supertest**: Librería de aserciones HTTP para testear APIs
-- **Base de Datos de Pruebas**: Entorno aislado de test usando la misma configuración de MySQL
-
-### DevOps
-
-- **Docker & Docker Compose**: Contenerización y orquestación
-- **Makefile**: Ejecución simplificada de comandos
+---
 
 ## Esquema de Base de Datos
-
-### Relaciones entre entidades
 
 ```
 Usuarios (1) ←→ (N) Finalizaciones (N) ←→ (1) Lecciones
@@ -89,19 +74,21 @@ Cursos (1)
 
 ### Decisiones diseño
 
-1. **Módulos autorreferenciados**: Implementados con clave foránea `moduleId` apuntando al módulo padre, habilitando anidamiento infinito
-2. **Seguimiento de Finalizaciones**: Restricción única en `(userId, lessonId)` evitando duplicados
-3. **Borrado en Cascada**: Limpieza adecuada al eliminar entidades padre
-4. **Porcentaje de Progreso**: Seguimiento granular (0-100%) para cada lección completada
+1. **Módulos autorreferenciados** con clave foránea `moduleId`
+2. **Finalizaciones únicas** por `(userId, lessonId)` evitando duplicados
+3. **Borrado en Cascada** para mantener integridad
+4. **Porcentaje de Progreso** granular (0-100%)
+
+---
 
 ## Endpoints de la API
 
 ### Autenticación
 
 - `POST /users/register` → Registro de usuario
-- `POST /users/login` → Inicio de sesión (retorna token JWT)
+- `POST /users/login` → Inicio de sesión (JWT)
 
-### Gestión de Cursos
+### Cursos
 
 - `GET /courses` → Listar todos los cursos
 - `GET /courses/:id` → Obtener curso específico
@@ -109,7 +96,7 @@ Cursos (1)
 - `PUT /courses/:id` → Actualizar curso
 - `DELETE /courses/:id` → Eliminar curso
 
-### Gestión de Módulos (Jerárquico)
+### Módulos (Jerárquico)
 
 - `GET /modules` → Listar módulos (filtrado por curso/padre)
 - `GET /modules/:id` → Obtener módulo específico
@@ -117,7 +104,7 @@ Cursos (1)
 - `PUT /modules/:id` → Actualizar módulo
 - `DELETE /modules/:id` → Eliminar módulo
 
-### Gestión de Lecciones
+### Lecciones
 
 - `GET /lessons` → Listar lecciones (filtrado por módulo)
 - `GET /lessons/:id` → Obtener lección específica
@@ -125,7 +112,7 @@ Cursos (1)
 - `PUT /lessons/:id` → Actualizar lección
 - `DELETE /lessons/:id` → Eliminar lección
 
-### Seguimiento de Progreso
+### Progreso
 
 - `GET /completions` → Listar finalizaciones (filtrado)
 - `GET /completions/:id` → Obtener finalización específica
@@ -183,62 +170,40 @@ make test
 docker-compose exec node npm run test
 ```
 
+---
+
 ## Testing
 
-- **31 pruebas completas** cubriendo toda la funcionalidad principal
-- **Pruebas con base de datos real** usando MySQL en Docker
-- **Cobertura CRUD completa** para todas las entidades
-- **Pruebas de relaciones** incluyendo estructuras jerárquicas de módulos
-- **Flujo de autenticación** con JWT
-- **Manejo de errores** con códigos de estado adecuados
-
-### Categorías de pruebas
-
-- Endpoint de health check
-- Registro y autenticación de usuarios
-- Operaciones CRUD de cursos
-- Operaciones de jerarquía de módulos (raíz y anidados)
-- Gestión de lecciones dentro de módulos
-- Seguimiento de finalizaciones y cálculo de progreso
-
----
+- **31 pruebas completas** (CRUD + autenticación + jerarquía)
+- **Pruebas con base de datos real** en Docker
+- **Validación de relaciones jerárquicas**
+- **Manejo de errores y códigos de estado**
 
 ## Código y Arquitectura
 
-### Patrones de diseño
+- **Repository Pattern** (acceso a datos con TypeORM)
+- **Service Layer** (lógica de negocio desacoplada)
+- **Controller Pattern** (request/response + validaciones)
+- **Estructura modular por funcionalidades**
 
-- **Repository Pattern**: Capa de acceso a datos limpia mediante TypeORM
-- **Service Layer**: Lógica de negocio separada en la autenticación de usuarios
-- **Controller Pattern**: Manejo de request/response con gestión adecuada de errores
-- **Estructura Modular**: Organización basada en funcionalidades que promueve la mantenibilidad
+## Seguridad
 
-### Manejo de errores
+- Contraseñas hasheadas con bcrypt
+- Autenticación JWT
+- Validación y sanitización de inputs
+- Integridad de datos con claves foráneas
 
-- Respuestas de error estandarizadas en todos los endpoints
-- Validación de entradas con mensajes significativos
-- Códigos HTTP correctos para cada escenario
-- Manejo de violaciones de restricciones de base de datos
+## Rendimiento futuro
 
-### Consideraciones de seguridad
-
-- Hash de contraseñas con bcrypt
-- Autenticación basada en tokens JWT
-- Sanitización y validación de entradas
-- Restricciones de claves foráneas evitando registros huérfanos
-
-### Consideraciones de rendimiento
-
-La implementación actual prioriza la corrección y la mantenibilidad. Para escalar en producción se recomienda considerar:
-
-- **Cacheo**: Redis para datos de cursos/módulos accedidos frecuentemente
-- **Indexación en la base de datos**: Consultas optimizadas para recorrer módulos jerárquicos
-- **Paginación**: Para listados grandes de cursos o módulos
-- **Pooling de conexiones**: Optimización de conexiones a la base de datos
+- **Cache con Redis**
+- **Indexación en la base de datos**
+- **Paginación en listados grandes**
+- **Pooling de conexiones**
 
 ---
 
 <div align="end">
 
-Realizado por [Joan Simonutti](https://www.linkedin.com/in/joansimonutti/) | Creada por @daviddionis | 2025
+Realizado por [Joan Simonutti](https://www.linkedin.com/in/joansimonutti/) | 2025
 
 </div>
