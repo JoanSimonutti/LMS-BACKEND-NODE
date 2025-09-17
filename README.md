@@ -1,4 +1,4 @@
-# Learning Management System | Backend en Node.js + TypeORM
+# Learning Management System | Backend
 
 ### Descripción
 
